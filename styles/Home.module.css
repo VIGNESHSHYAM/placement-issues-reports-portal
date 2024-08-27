@@ -1,0 +1,50 @@
+.gradient-custom-2 {
+    background: #1e3c72;
+    background: -webkit-linear-gradient(to right, #2a4c8b, #2a5298, #5e8eb9);
+    background: linear-gradient(to right, #224381, #2a5298, #507ca3);
+    border-top-right-radius: .3rem;
+    border-bottom-right-radius: .3rem;
+  }
+  
+  .gradient-form {
+    height: 100vh !important;
+  }
+  
+  .card {
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  
+  .card-body {
+    color: #000000;
+  }
+  
+  .text-light {
+    color: #d0d0d0 !important;
+  }
+  
+  .p-md-5 {
+    padding: 2rem !important;
+  }
+  
+  .btn-primary {
+    background-color: #4970b4;
+    border-color: #2a5298;
+  }
+  
+  .btn-primary:hover {
+    background-color: #305291;
+    border-color: #1e3c72;
+  }
+  
+  .btn-outline-danger {
+    border-color: #6b9ac4;
+    color: #6b9ac4;
+  }
+  
+  .btn-outline-danger:hover {
+    background-color: #6b9ac4;
+    color: #ffffff;
+  }
+  
