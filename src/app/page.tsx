@@ -4,23 +4,36 @@ import Head from 'next/head';
 import Image from 'next/image';
 import axios from 'axios';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 interface UserDetails {
   name: string;
   emailId: string;
+  department: string;
+  facultyName: string;
+  semester: string;
+  UG_OR_PG: string;
+  mobile_number: number;
+  Gender: string;
+  DOB: string;
+  Specialization: string;
+  SRMIST_Mail_ID: string;
+  alternate_number: number;
+  Section: string;
 }
 
 export default function Home() {
   const [registrationNumber, setRegistrationNumber] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [loginResult, setLoginResult] = useState<string>('');
-  const [menuOpen, setMenuOpen] = useState(false);
+  const router = useRouter();
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     try {
       const response = await axios.post(
-        'http://localhost:4000/trpc/login',
+        'https://profile-auth-1ndz.onrender.com/trpc/login',
         {
           registrationNumber: registrationNumber.trim(),
           password: password.trim(),
@@ -36,7 +49,9 @@ export default function Home() {
       const { token, userDetails }: { token: string; userDetails: UserDetails } = response.data.result.data;
 
       localStorage.setItem('authToken', token);
-      setLoginResult(`Login successful! Welcome, ${userDetails.name}, ${userDetails.emailId}.`);
+      localStorage.setItem('userDetails', JSON.stringify(userDetails));
+
+      router.push('/profile');
     } catch (error: any) {
       setLoginResult(
         `Login failed: ${error.response ? error.response.data.message : 'An error occurred.'}`
@@ -51,24 +66,23 @@ export default function Home() {
         <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.0/mdb.min.css" rel="stylesheet" />
       </Head>
       <header>
-      <nav className="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-white-800">
-        <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
-          <Link href="/" className="flex items-center">
-            <Image
-              src="/Srmseal.png" 
-              className="mr-2 h-6 sm:h-9"
-              alt="SRM Logo"
-              width={40}
-              height={90}
-            />
-            <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-blue-700">
-              SRM UNIVERSITY
-            </span>
-          </Link>
-          
-        </div>
-      </nav>
-    </header>
+        <nav className="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-white-800">
+          <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
+            <Link href="/" className="flex items-center">
+              <Image
+                src="/Srmseal.png"
+                className="mr-2 h-6 sm:h-9"
+                alt="SRM Logo"
+                width={40}
+                height={90}
+              />
+              <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-blue-700">
+                SRM UNIVERSITY
+              </span>
+            </Link>
+          </div>
+        </nav>
+      </header>
       <section className="h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
         <div className="container max-w-4xl mx-auto p-8 bg-white rounded-lg shadow-lg transition duration-300 ease-in-out transform hover:shadow-xl hover:scale-200">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -82,7 +96,7 @@ export default function Home() {
                   <input
                     type="text"
                     id="registrationNumber"
-                    className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-200"
+                    className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-200 text-black"
                     placeholder="Your Registration Number"
                     value={registrationNumber}
                     onChange={(e) => setRegistrationNumber(e.target.value)}
@@ -93,7 +107,7 @@ export default function Home() {
                   <input
                     type="password"
                     id="password"
-                    className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-200"
+                    className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-200 text-black"
                     placeholder="Your Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
